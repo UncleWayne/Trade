@@ -66,7 +66,7 @@ export function TradeTable({ trades }: { trades: TradeRow[] }) {
 
   const headerClass = (key: SortKey) =>
     `cursor-pointer select-none px-4 py-2 font-medium ${
-      sortKey === key ? "text-neutral-100" : ""
+      sortKey === key ? "text-fg" : ""
     }`;
 
   return (
@@ -76,12 +76,12 @@ export function TradeTable({ trades }: { trades: TradeRow[] }) {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Filter by symbol..."
-          className="rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm text-neutral-100 outline-none focus:border-indigo-500"
+          className="rounded-md border border-hairline bg-surface px-3 py-1.5 text-sm text-fg outline-none focus:border-silver-lo"
         />
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="rounded-md border border-neutral-700 bg-neutral-950 px-3 py-1.5 text-sm text-neutral-100"
+          className="rounded-md border border-hairline bg-surface px-3 py-1.5 text-sm text-fg"
         >
           <option value="ALL">All types</option>
           {instrumentTypes.map((t) => (
@@ -92,10 +92,10 @@ export function TradeTable({ trades }: { trades: TradeRow[] }) {
         </select>
       </div>
 
-      <div className="overflow-x-auto rounded-xl border border-neutral-800">
+      <div className="overflow-x-auto rounded-md border border-hairline">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-neutral-800 bg-neutral-900 text-left text-neutral-400">
+            <tr className="border-b border-hairline bg-surface-raised text-left text-[10px] tracking-wide text-fg-muted uppercase">
               <th className={headerClass("symbol")} onClick={() => toggleSort("symbol")}>
                 Symbol {sortKey === "symbol" && (sortDir === "asc" ? "↑" : "↓")}
               </th>
@@ -119,7 +119,7 @@ export function TradeTable({ trades }: { trades: TradeRow[] }) {
           <tbody>
             {filtered.length === 0 && (
               <tr>
-                <td colSpan={9} className="px-4 py-8 text-center text-neutral-500">
+                <td colSpan={9} className="px-4 py-8 text-center text-fg-muted">
                   No trades match.
                 </td>
               </tr>
@@ -127,32 +127,32 @@ export function TradeTable({ trades }: { trades: TradeRow[] }) {
             {filtered.map((t) => (
               <tr
                 key={t.id}
-                className="border-b border-neutral-900 hover:bg-neutral-900/50"
+                className="border-b border-hairline last:border-b-0 hover:bg-surface-raised"
               >
                 <td className="px-4 py-2">
                   <Link
                     href={`/dashboard/trades/${t.id}`}
-                    className="text-indigo-400 hover:underline"
+                    className="text-fg underline decoration-hairline decoration-1 underline-offset-2 hover:decoration-silver-lo"
                   >
                     {t.symbol}
                   </Link>
                 </td>
-                <td className="px-4 py-2 text-neutral-400">{t.instrumentType}</td>
-                <td className="px-4 py-2 text-neutral-400">{t.side}</td>
-                <td className="px-4 py-2 text-neutral-400">{t.quantity}</td>
-                <td className="px-4 py-2 text-neutral-400">{t.entryPrice}</td>
-                <td className="px-4 py-2 text-neutral-400">{t.exitPrice ?? "—"}</td>
-                <td className="px-4 py-2 text-neutral-400">
+                <td className="px-4 py-2 text-fg-muted">{t.instrumentType}</td>
+                <td className="px-4 py-2 font-mono text-xs text-fg-muted">{t.side}</td>
+                <td className="px-4 py-2 font-mono text-fg-muted tabular-nums">{t.quantity}</td>
+                <td className="px-4 py-2 font-mono text-fg-muted tabular-nums">{t.entryPrice}</td>
+                <td className="px-4 py-2 font-mono text-fg-muted tabular-nums">{t.exitPrice ?? "—"}</td>
+                <td className="px-4 py-2 text-fg-muted">
                   {new Date(t.entryDate).toLocaleDateString()}
                 </td>
-                <td className="px-4 py-2 text-neutral-400">{t.status}</td>
+                <td className="px-4 py-2 text-fg-muted">{t.status}</td>
                 <td
-                  className={`px-4 py-2 font-medium ${
+                  className={`px-4 py-2 font-mono tabular-nums ${
                     t.pnl == null
-                      ? "text-neutral-500"
+                      ? "text-fg-muted"
                       : t.pnl >= 0
-                      ? "text-emerald-400"
-                      : "text-red-400"
+                      ? "text-jade"
+                      : "text-garnet"
                   }`}
                 >
                   {formatMoney(t.pnl)}

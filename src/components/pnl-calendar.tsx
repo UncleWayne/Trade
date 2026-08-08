@@ -36,20 +36,20 @@ export function PnlCalendar({ dailyPnl }: { dailyPnl: Record<string, number> }) 
       <div className="mb-3 flex items-center justify-between">
         <button
           onClick={() => setCursor(new Date(year, month - 1, 1))}
-          className="rounded-md px-2 py-1 text-sm text-neutral-400 hover:bg-neutral-900"
+          className="rounded-md px-2 py-1 text-sm text-fg-muted hover:bg-surface-raised"
         >
           ← Prev
         </button>
-        <div className="text-sm font-medium text-neutral-200">{monthLabel}</div>
+        <div className="font-serif text-sm text-fg">{monthLabel}</div>
         <button
           onClick={() => setCursor(new Date(year, month + 1, 1))}
-          className="rounded-md px-2 py-1 text-sm text-neutral-400 hover:bg-neutral-900"
+          className="rounded-md px-2 py-1 text-sm text-fg-muted hover:bg-surface-raised"
         >
           Next →
         </button>
       </div>
 
-      <div className="grid grid-cols-7 gap-1 text-center text-xs text-neutral-500">
+      <div className="grid grid-cols-7 gap-1 text-center text-[10px] tracking-wide text-fg-muted uppercase">
         {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
           <div key={d} className="pb-1">
             {d}
@@ -73,15 +73,15 @@ export function PnlCalendar({ dailyPnl }: { dailyPnl: Record<string, number> }) 
               key={dateKey}
               className={`flex h-16 flex-col justify-between rounded-md border p-1.5 text-xs ${
                 positive
-                  ? "border-emerald-800 bg-emerald-950/60 text-emerald-300"
+                  ? "border-jade/30 bg-jade/10 text-jade"
                   : negative
-                  ? "border-red-800 bg-red-950/60 text-red-300"
-                  : "border-neutral-800 bg-neutral-900/40 text-neutral-500"
+                  ? "border-garnet/30 bg-garnet/10 text-garnet"
+                  : "border-hairline bg-surface text-fg-muted"
               }`}
             >
               <span>{day}</span>
               {hasPnl && (
-                <span className="font-medium">{formatMoney(pnl)}</span>
+                <span className="font-mono tabular-nums">{formatMoney(pnl)}</span>
               )}
             </div>
           );

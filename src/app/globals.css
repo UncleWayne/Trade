@@ -1,26 +1,55 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Pearl Ledger (light) */
+  --bg: #f2f3f5;
+  --surface: #ffffff;
+  --surface-raised: #fbfbfc;
+  --hairline: #e1e3e8;
+  --fg: #1b1d23;
+  --fg-muted: #6b6f7c;
+  --silver-hi: #33363f;
+  --silver-lo: #6e7280;
+  --on-silver: #ffffff;
+  --jade: #23875f;
+  --garnet: #b03a52;
+}
+
+.dark {
+  /* Obsidian Vault (dark) */
+  --bg: #15161b;
+  --surface: #1c1e25;
+  --surface-raised: #21232b;
+  --hairline: #2c2f39;
+  --fg: #e9eaee;
+  --fg-muted: #8d9099;
+  --silver-hi: #e4e7ec;
+  --silver-lo: #8a8f9c;
+  --on-silver: #101114;
+  --jade: #3fbf8f;
+  --garnet: #d96c82;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-hairline: var(--hairline);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-silver-hi: var(--silver-hi);
+  --color-silver-lo: var(--silver-lo);
+  --color-on-silver: var(--on-silver);
+  --color-jade: var(--jade);
+  --color-garnet: var(--garnet);
   --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-fraunces);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }

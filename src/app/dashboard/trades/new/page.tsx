@@ -8,7 +8,7 @@ export default async function NewTradePage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-semibold text-neutral-100">New Trade</h1>
+      <h1 className="mb-6 font-serif text-2xl text-fg">New Trade</h1>
       <TradeForm accountId={account.id} tags={tags} />
     </div>
   );

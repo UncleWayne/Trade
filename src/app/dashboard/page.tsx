@@ -34,24 +34,24 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-neutral-100">{account.name}</h1>
-        <p className="text-sm text-neutral-500">Overview</p>
+        <h1 className="font-serif text-2xl text-fg">{account.name}</h1>
+        <p className="text-sm text-fg-muted">Overview</p>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
         {cards.map((c) => (
           <div
             key={c.label}
-            className="rounded-xl border border-neutral-800 bg-neutral-900 p-4"
+            className="relative rounded-md border border-hairline bg-surface p-4 before:absolute before:inset-x-2.5 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-silver-lo before:to-transparent before:opacity-60 before:content-['']"
           >
-            <div className="text-xs text-neutral-500">{c.label}</div>
+            <div className="text-[10px] tracking-wide text-fg-muted uppercase">{c.label}</div>
             <div
-              className={`mt-1 text-lg font-semibold ${
+              className={`mt-1.5 font-mono text-lg tabular-nums ${
                 "positive" in c
                   ? c.positive
-                    ? "text-emerald-400"
-                    : "text-red-400"
-                  : "text-neutral-100"
+                    ? "text-jade"
+                    : "text-garnet"
+                  : "text-fg"
               }`}
             >
               {c.value}
@@ -60,13 +60,13 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-4">
-        <h2 className="mb-2 text-sm font-medium text-neutral-300">Equity Curve</h2>
+      <div className="rounded-md border border-hairline bg-surface p-4">
+        <h2 className="mb-2 text-[10px] tracking-wide text-fg-muted uppercase">Equity Curve</h2>
         <EquityChart data={equity} />
       </div>
 
-      <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-4">
-        <h2 className="mb-2 text-sm font-medium text-neutral-300">PnL Calendar</h2>
+      <div className="rounded-md border border-hairline bg-surface p-4">
+        <h2 className="mb-2 text-[10px] tracking-wide text-fg-muted uppercase">PnL Calendar</h2>
         <PnlCalendar dailyPnl={dailyPnl} />
       </div>
     </div>

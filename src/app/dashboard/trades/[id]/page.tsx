@@ -54,39 +54,39 @@ export default async function TradeDetailPage({
   return (
     <div className="max-w-2xl">
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-neutral-100">{trade.symbol}</h1>
+        <h1 className="font-serif text-2xl text-fg">{trade.symbol}</h1>
         <form action={deleteAction}>
           <button
             type="submit"
-            className="rounded-md border border-red-900 px-3 py-1.5 text-sm text-red-400 hover:bg-red-950"
+            className="rounded-md border border-garnet/40 px-3 py-1.5 text-sm text-garnet hover:bg-garnet/10"
           >
             Delete Trade
           </button>
         </form>
       </div>
 
-      <div className="mb-6 grid grid-cols-2 gap-x-8 gap-y-3 rounded-xl border border-neutral-800 bg-neutral-900 p-4 text-sm">
+      <div className="mb-6 grid grid-cols-2 gap-x-8 gap-y-3 rounded-md border border-hairline bg-surface p-4 text-sm">
         {fields.map(([label, value]) => (
           <div key={label}>
-            <div className="text-xs text-neutral-500">{label}</div>
-            <div className="text-neutral-200">{value}</div>
+            <div className="text-[10px] tracking-wide text-fg-muted uppercase">{label}</div>
+            <div className="font-mono text-fg tabular-nums">{value}</div>
           </div>
         ))}
       </div>
 
-      <form action={updateAction} className="space-y-4 rounded-xl border border-neutral-800 bg-neutral-900 p-4">
+      <form action={updateAction} className="space-y-4 rounded-md border border-hairline bg-surface p-4">
         <div>
-          <div className="mb-1 text-xs text-neutral-500">Tags</div>
+          <div className="mb-1 text-[10px] tracking-wide text-fg-muted uppercase">Tags</div>
           <div className="flex flex-wrap gap-3">
             {allTags.length === 0 && (
-              <p className="text-sm text-neutral-500">
+              <p className="text-sm text-fg-muted">
                 No tags yet — create some on the Tags page.
               </p>
             )}
             {allTags.map((tag) => (
               <label
                 key={tag.id}
-                className="flex items-center gap-1.5 rounded-md border border-neutral-800 px-2 py-1 text-sm text-neutral-300"
+                className="flex items-center gap-1.5 rounded-md border border-hairline px-2 py-1 text-sm text-fg-muted"
               >
                 <input
                   type="checkbox"
@@ -101,18 +101,18 @@ export default async function TradeDetailPage({
         </div>
 
         <div>
-          <div className="mb-1 text-xs text-neutral-500">Notes</div>
+          <div className="mb-1 text-[10px] tracking-wide text-fg-muted uppercase">Notes</div>
           <textarea
             name="notes"
             rows={6}
             defaultValue={trade.notes ?? ""}
-            className="w-full rounded-md border border-neutral-700 bg-neutral-950 px-3 py-2 text-sm text-neutral-100 outline-none focus:border-indigo-500"
+            className="w-full rounded-md border border-hairline bg-bg px-3 py-2 text-sm text-fg outline-none focus:border-silver-lo"
           />
         </div>
 
         <button
           type="submit"
-          className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500"
+          className="rounded-md bg-gradient-to-br from-silver-hi to-silver-lo px-4 py-2 text-sm font-semibold text-on-silver hover:brightness-105"
         >
           Save
         </button>
