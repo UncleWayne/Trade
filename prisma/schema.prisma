@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  accounts Account[]
+  trades   Trade[]
+  tags     Tag[]
+}
+
+model Account {
+  id       String  @id @default(cuid())
+  userId   String
+  name     String
+  broker   String?
+  currency String  @default("USD")
+
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trades Trade[]
+
+  @@index([userId])
+}
+
+enum InstrumentType {
+  STOCK
+  OPTION
+  FUTURE
+  FOREX
+  CRYPTO
+}
+
+enum TradeSide {
+  LONG
+  SHORT
+}
+
+enum TradeStatus {
+  OPEN
+  CLOSED
+}
+
+enum OptionType {
+  CALL
+  PUT
+}
+
+model Trade {
+  id        String         @id @default(cuid())
+  userId    String
+  accountId String
+  status    TradeStatus    @default(CLOSED)
+
+  instrumentType InstrumentType
+  symbol         String
+  side           TradeSide
+  quantity       Float
+
+  entryPrice Float
+  exitPrice  Float?
+  entryDate  DateTime
+  exitDate   DateTime?
+  fees       Float   @default(0)
+
+  // instrument-specific fields (nullable, only relevant per instrumentType)
+  contractMultiplier Float? // futures
+  lotSize            Float? // forex
+  strike             Float? // options
+  expiry             DateTime? // options
+  optionType         OptionType? // options
+
+  pnl   Float? // computed + stored at write time via lib/pnl.ts
+  notes String?
+
+  user    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  account Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  tags    TradeTag[]
+  attachments Attachment[]
+
+  @@index([userId])
+  @@index([accountId])
+  @@index([entryDate])
+}
+
+model Tag {
+  id     String @id @default(cuid())
+  userId String
+  name   String
+  color  String @default("#6366f1")
+
+  user   User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trades TradeTag[]
+
+  @@unique([userId, name])
+}
+
+model TradeTag {
+  tradeId String
+  tagId   String
+
+  trade Trade @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+  tag   Tag   @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([tradeId, tagId])
+}
+
+model Attachment {
+  id      String @id @default(cuid())
+  tradeId String
+  url     String
+
+  trade Trade @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+
+  @@index([tradeId])
+}
